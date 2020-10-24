@@ -1,0 +1,2 @@
+# pashirin-nodeserver2
+pashirinのnodeサーバーをもう一回やってみる
