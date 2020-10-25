@@ -22,16 +22,17 @@ app.use(express.static(process.env.STATIC_DIR));
 // app.use(express.static(__dirname + "/dist"));
 
 app.use(
-  express.json({
+  express.json(
+    // {
     // We need the raw body to verify webhook signatures.
     // Let's compute it only when hit ting the Stripe webhook endpoint.
-    verify: function (req, res, buf) {
-      if (req.originalUrl.startsWith('/webhook')) {
-        req.rawBody = buf.toString();
-      }
-    },
-  })
-);
+  //   verify: function (req, res, buf) {
+  //     if (req.originalUrl.startsWith('/webhook')) {
+  //       req.rawBody = buf.toString();
+  //     }
+  //   },
+  // })
+));
 
 //これは使わなくてもいいかな。。。
 // app.use(bodyParser.json());
