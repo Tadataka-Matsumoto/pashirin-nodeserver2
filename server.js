@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { resolve } = require('path');
+const path = require('path');
 const cors = require('cors');
 var bodyParser = require('body-parser');
 // Copy the .env.example in the root into a .env file in this folder
@@ -20,7 +20,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 app.use(cors());
 app.use(express.static(process.env.STATIC_DIR));
 
-// app.use(express.static(path.join(__dirname+'/dist')));
+app.use(express.static(path.join(__dirname+'/dist')));
 
 
 app.use(
@@ -79,4 +79,5 @@ app.post('/ephemeral_keys', async (req, res) => {
 const currentPort = process.env.port || 4242
 
 app.listen(process.env.port || 4242 , () => console.log('Running'));
+
 
