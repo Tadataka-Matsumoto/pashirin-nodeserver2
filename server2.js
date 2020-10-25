@@ -33,8 +33,10 @@ server.post('/ephemeral_keys', async (req, res) => {
     console.log(apiVersion, customerId);
     try {
       let key = await stripe.ephemeralKeys.create(
-        { customer: customerId },
-        { apiVersion: apiVersion }
+        // { customer: customerId },
+        // { apiVersion: apiVersion }
+        { customer: "cus_IFTSVUas6QxpyJ" },
+        { apiVersion: "2020-08-27" }
       );
       console.log("keyはなに",key);
       res.status(200).send(key);
