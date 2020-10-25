@@ -18,8 +18,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // );
 //const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // app.use(cors());
-// app.use(express.static(process.env.STATIC_DIR));
-app.use(express.static(__dirname + process.env.STATIC_DIR));
+app.use(express.static(process.env.STATIC_DIR));
+
+// app.use(express.static(path.join(__dirname+'/dist')));
+
 
 app.use(
   express.json(
@@ -501,6 +503,7 @@ app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
 // //   // console.log(res);
 // //   res.json({ id: session.id });
 // // });
+const currentPort = process.env.port || 4242
 
-// // app.listen(4242, () => console.log('Running on port 4242'));
+app.listen(currentPort , () => console.log('Running on port', currentPort));
 
