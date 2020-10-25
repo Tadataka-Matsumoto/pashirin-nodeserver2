@@ -78,5 +78,5 @@ app.post('/ephemeral_keys', async (req, res) => {
 
 const currentPort = process.env.port || 4242
 
-app.listen(currentPort , () => console.log('Running on port', currentPort));
+app.listen(process.env.port || 4242 , () => console.log('Running'));
 
