@@ -115,237 +115,239 @@ app.post('/ephemeral_keys', async (req, res) => {
 
 
 // Post & Save New customer一応カスタマーは作れる。
-app.post('/create', async (req, res) => {
+// app.post('/create', async (req, res) => {
 
-  // var customerId = req.body.customerId;
-  var amount = req.body.amount;
-  var currency = req.body.currency;
-  var description = req.body.description;
+//   // var customerId = req.body.customerId;
+//   var amount = req.body.amount;
+//   var currency = req.body.currency;
+//   var description = req.body.description;
 
-  console.log(amount);
-  console.log(currency);
+//   console.log(amount);
+//   console.log(currency);
 
-  const customer = await stripe.customers.create({
-    description: description
-  });
+//   const customer = await stripe.customers.create({
+//     description: description
+//   });
 
-  console.log("customerは？", customer);
-  res.send(customer);
-  //   stripe.customer
-//     .create({
-//       name: name,
-//       customer: customerId,
-//     })
-//     .then((key) => {
-//       res.status(200).send(key);
-//       console.log(key, 'this is a new user');
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).end();
-//     });
-});
+//   console.log("customerは？", customer);
+//   res.send(customer);
+//   //   stripe.customer
+// //     .create({
+// //       name: name,
+// //       customer: customerId,
+// //     })
+// //     .then((key) => {
+// //       res.status(200).send(key);
+// //       console.log(key, 'this is a new user');
+// //     })
+// //     .catch((err) => {
+// //       console.log(err);
+// //       res.status(500).end();
+// //     });
+// });
 
 
 
 
 // CREATE PAYMENT INTENT
 //Post charge
-app.post('/charge', async (req, res) => {
-  // var customerId = req.body.customerId;
-  var cardId = req.body.cardId;
-  var amount = req.body.amount;
-  var currency = req.body.currency;
-  var description = req.body.description;
+// app.post('/charge', async (req, res) => {
+//   // var customerId = req.body.customerId;
+//   var cardId = req.body.cardId;
+//   var amount = req.body.amount;
+//   var currency = req.body.currency;
+//   var description = req.body.description;
 
  
-//  const customersList = await stripe.customers.list({
-//   limit: 3,
+// //  const customersList = await stripe.customers.list({
+// //   limit: 3,
+// // });
+// // console.log("customerlistってなんだ", customersList);
+
+// // const customersCharge = await stripe.charges.list({
+// //   limit: 50,
+// // });
+// // console.log("customersChargeってなんだ",customersCharge);
+// // res.send(customersCharge);
+
+// //超参考にするhttps://qiita.com/zaburo/items/7d4de7723b6d2445f356
+
+
+//   // paymentIntentはでるぞう！！！参考
+//   // const paymentIntent = await stripe.paymentIntents.create({
+//   //   amount: amount,
+//   //   currency: currency,
+//   //   // source: source,
+//   //   payment_method_types: [process.env.PAYMENT_METHODS]
+//   // });
+
+//   // console.log("paymentIntentは", paymentIntent);
+
+// // テストカードを使用して支払いを完了します。
+// // paymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
+// //   payment_method: 'pm_card_mastercard',
+// // });
+
+
+// // res.send(paymentIntent);
+
+
+
+
+
+//   console.log("parametersは？", cardId, amount, currency, description)
+
+//   const customer = await stripe.customers.create({
+//     description: description
+//   });
+
+//   const customerId = customer.id;
+//   console.log("customerIdは？", customer.id);
+//   // res.send(customer.id);
+
+
+//   //source。。。作ったけど、いまいちわからん。。。
+//   // const source =  await stripe.sources.create({
+//     // type: 'ach_credit_transfer',
+//     // type:{
+//     //   "account_number": "test_52796e3294dc",
+//     //   "routing_number": "110000000",
+//     //   "fingerprint": "ecpwEzmBOSMOqQTL",
+//     //   "bank_name": "TEST BANK",
+//     //   "swift_code": "TSTEZ122"
+//     // },
+//     // currency: currency
+//     // owner: {
+//     //   email: 'tdtk1538@gmail.com'
+//     // }
+//   // })
+//   // console.log('chargerequest');
+//   // console.log("amountとcurrencyとsourceとdescription", amount,currency,source,description);
+
+
+//   // https://stripe.com/docs/api/sources/createとhttps://qiita.com/liukoki/items/d440549f7bba13d6e66a
+//   // const charge = await stripe.charges.create({
+//   //   customer:customerId,
+//   //   amount: amount,
+//   //   currency: currency,
+//   //   source: cardId,
+//   //   // source: source,
+//   //   description: description
+//   // });
+
+// // 　console.log("chargeってなんだ？？", charge);
+
+// const token = await stripe.tokens.create({
+//   card: {
+//     number: '4242424242424242',
+//     exp_month: 04,
+//     exp_year: 2021,
+//     cvc: '424',
+//   },
 // });
-// console.log("customerlistってなんだ", customersList);
-
-// const customersCharge = await stripe.charges.list({
-//   limit: 50,
-// });
-// console.log("customersChargeってなんだ",customersCharge);
-// res.send(customersCharge);
-
-//超参考にするhttps://qiita.com/zaburo/items/7d4de7723b6d2445f356
-
-
-  // paymentIntentはでるぞう！！！参考
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: amount,
-  //   currency: currency,
-  //   // source: source,
-  //   payment_method_types: [process.env.PAYMENT_METHODS]
-  // });
-
-  // console.log("paymentIntentは", paymentIntent);
-
-// テストカードを使用して支払いを完了します。
-// paymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
-//   payment_method: 'pm_card_mastercard',
-// });
-
-
-// res.send(paymentIntent);
-
-
-
-
-
-  console.log("parametersは？", cardId, amount, currency, description)
-
-  const customer = await stripe.customers.create({
-    description: description
-  });
-
-  const customerId = customer.id;
-  console.log("customerIdは？", customer.id);
-  // res.send(customer.id);
-
-
-  //source。。。作ったけど、いまいちわからん。。。
-  // const source =  await stripe.sources.create({
-    // type: 'ach_credit_transfer',
-    // type:{
-    //   "account_number": "test_52796e3294dc",
-    //   "routing_number": "110000000",
-    //   "fingerprint": "ecpwEzmBOSMOqQTL",
-    //   "bank_name": "TEST BANK",
-    //   "swift_code": "TSTEZ122"
-    // },
-    // currency: currency
-    // owner: {
-    //   email: 'tdtk1538@gmail.com'
-    // }
-  // })
-  // console.log('chargerequest');
-  // console.log("amountとcurrencyとsourceとdescription", amount,currency,source,description);
-
-
-  // https://stripe.com/docs/api/sources/createとhttps://qiita.com/liukoki/items/d440549f7bba13d6e66a
-  // const charge = await stripe.charges.create({
-  //   customer:customerId,
-  //   amount: amount,
-  //   currency: currency,
-  //   source: cardId,
-  //   // source: source,
-  //   description: description
-  // });
-
-// 　console.log("chargeってなんだ？？", charge);
-
-const token = await stripe.tokens.create({
-  card: {
-    number: '4242424242424242',
-    exp_month: 04,
-    exp_year: 2021,
-    cvc: '424',
-  },
-});
   
-const tokenId = token.id
-   console.log("yyyyyyyy");
-   console.log("tokenIdは？",tokenId);
-const charge = await stripe.charges.create(
-  		{
-  			amount: amount,
-        currency: currency,
-        customer: customerId,
-        // paymentIntent:paymentIntent
-        // payment_method_types: ['card']
-        source:tokenId
-        // customer:"cus_IFTSVUas6QxpyJ"
-  		},
-);
+// const tokenId = token.id
+//    console.log("yyyyyyyy");
+//    console.log("tokenIdは？",tokenId);
+// const charge = await stripe.charges.create(
+//   		{
+//   			amount: amount,
+//         currency: currency,
+//         customer: customerId,
+//         // paymentIntent:paymentIntent
+//         // payment_method_types: ['card']
+//         source:tokenId
+//         // customer:"cus_IFTSVUas6QxpyJ"
+//   		},
+// );
 
-console.log("chargeは？", charge);
-res.send(charge);
+// console.log("chargeは？", charge);
+// res.send(charge);
 
 
 
-  // console.log("chargeは何?", charge);
-  // res.send(charge);
-  // stripe.charges.create(
-  // 	{
-  // 		customerId: customerId,
-  // 		amount: amount,
-  // 		currency: currency,
-  // 		customer: customerId,
-  // 	},
-  // 	function (err, charge) {
-  // 		if (err) {
-  // 			console.log('ERROR!!!!!');
-  // 			console.log(err, req.body);
-  // 			res.status(500).end();
-  // 		} else {
-  // 			res.status(200).send();
-  // 		}
-  // 	}
-  // );
-});
+//   // console.log("chargeは何?", charge);
+//   // res.send(charge);
+//   // stripe.charges.create(
+//   // 	{
+//   // 		customerId: customerId,
+//   // 		amount: amount,
+//   // 		currency: currency,
+//   // 		customer: customerId,
+//   // 	},
+//   // 	function (err, charge) {
+//   // 		if (err) {
+//   // 			console.log('ERROR!!!!!');
+//   // 			console.log(err, req.body);
+//   // 			res.status(500).end();
+//   // 		} else {
+//   // 			res.status(200).send();
+//   // 		}
+//   // 	}
+//   // );
+// });
 
 
 //少しreactを生かす
-app.post("/create-session", async (req, res) => {
-  // app.post("/", async (req, res) => {
-  console.log("create-sessionに来た？")
-  const domainURL = process.env.DOMAIN;
-  console.log(req.body);
-  // const { quantity, locale } = req.body;
-  // Create new Checkout Session for the order
-  // Other optional params include:
-  // [billing_address_collection] - to display billing address details on the page
-  // [customer] - if you have an existing Stripe Customer ID
-  // [customer_email] - lets you prefill the email input in the Checkout page
-  // For full details see https://stripe.com/docs/api/checkout/sessions/create
-  const session = await stripe.checkout.sessions.create({
-    //元のデータ
-    // payment_method_types: process.env.PAYMENT_METHODS,
-    // mode: 'payment',
-    // line_items: [
-    //   {
-    //     price: process.env.PRICE,
-    //     quantity: quantity
-    //   },
-    // ],
+// app.post("/create-session", async (req, res) => {
+//   // app.post("/", async (req, res) => {
+//   console.log("create-sessionに来た？")
+//   const domainURL = process.env.DOMAIN;
+//   console.log(req.body);
+//   // const { quantity, locale } = req.body;
+//   // Create new Checkout Session for the order
+//   // Other optional params include:
+//   // [billing_address_collection] - to display billing address details on the page
+//   // [customer] - if you have an existing Stripe Customer ID
+//   // [customer_email] - lets you prefill the email input in the Checkout page
+//   // For full details see https://stripe.com/docs/api/checkout/sessions/create
+//   const session = await stripe.checkout.sessions.create({
+//     //元のデータ
+//     // payment_method_types: process.env.PAYMENT_METHODS,
+//     // mode: 'payment',
+//     // line_items: [
+//     //   {
+//     //     price: process.env.PRICE,
+//     //     quantity: quantity
+//     //   },
+//     // ],
 
-    //フロントから来るデータ
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Stubborn Attachments',
-            images: ['https://i.imgur.com/EHyR2nP.png'],
-          },
-          unit_amount: 2000,
-        },
-        quantity: 1,
-      },
-    ],
-    mode: 'payment',
+//     //フロントから来るデータ
+//     payment_method_types: ['card'],
+//     line_items: [
+//       {
+//         price_data: {
+//           currency: 'usd',
+//           product_data: {
+//             name: 'Stubborn Attachments',
+//             images: ['https://i.imgur.com/EHyR2nP.png'],
+//           },
+//           unit_amount: 2000,
+//         },
+//         quantity: 1,
+//       },
+//     ],
+//     mode: 'payment',
 
-    //   // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
-    //   // success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-    //   // cancel_url: `${domainURL}/canceled.html`,
-    success_url: `https://www.codechrysalis.io/`,
-    cancel_url: `https://google.co.jp`
-    // }
-    // req.body
-  });
+//     //   // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+//     //   // success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+//     //   // cancel_url: `${domainURL}/canceled.html`,
+//     success_url: `https://www.codechrysalis.io/`,
+//     cancel_url: `https://google.co.jp`
+//     // }
+//     // req.body
+//   });
 
-  // res.json({ id: session.id });
-  console.log({ id: session.id })
-  res.send({
-    sessionId: session.id,
-  });
-});
+//   // res.json({ id: session.id });
+//   console.log({ id: session.id })
+//   res.send({
+//     sessionId: session.id,
+//   });
+// });
 
-app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
+const currentPort = process.env.port || 4242
+
+app.listen(currentPort , () => console.log('Running on port', currentPort));
 
 
 
@@ -503,7 +505,5 @@ app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
 // //   // console.log(res);
 // //   res.json({ id: session.id });
 // // });
-const currentPort = process.env.port || 4242
 
-app.listen(currentPort , () => console.log('Running on port', currentPort));
 
